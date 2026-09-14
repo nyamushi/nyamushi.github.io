@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>项目详情 · 毛安 工业设计作品集</title>
+<meta name="description" content="毛安 · 工业设计作品集项目详情。">
+<meta name="theme-color" content="#0b0b0c">
+<meta name="project-id" content="ar-shanhaijing-cards">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../favicon.ico">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23ff5a1f'/><text x='50' y='70' font-size='62' font-family='sans-serif' font-weight='700' fill='white' text-anchor='middle'>M</text></svg>">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<div id="boot" style="position:fixed;inset:0;z-index:999;background:#0b0b0c"></div>
+
+<header class="nav">
+  <div class="nav__inner">
+    <a class="brand" href="../index.html">
+      <span class="brand__mark" aria-hidden="true">M</span>
+      <span class="brand__text">
+        <span class="brand__name">毛安</span>
+        <span class="brand__role">Industrial Design</span>
+      </span>
+    </a>
+
+    <nav class="nav__links" id="navLinks" aria-label="主导航">
+      <a class="nav__link" href="../index.html#work">项目</a>
+      <a class="nav__link" href="../index.html#about">关于</a>
+      <a class="nav__link" href="../index.html#skills">能力</a>
+      <a class="nav__link" href="../index.html#experience">经历</a>
+      <a class="nav__link" href="../index.html#contact">联系</a>
+      <a class="nav__mobile-cta" href="mailto:3027891801@qq.com">
+        <span class="btn btn--primary btn--sm">发送邮件 <span class="btn__arrow">→</span></span>
+      </a>
+    </nav>
+
+    <div class="nav__cta">
+      <a class="btn btn--ghost btn--sm nav__mail" href="mailto:3027891801@qq.com">3027891801@qq.com</a>
+      <button class="nav__burger" id="burger" aria-label="打开菜单" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="nav__progress" id="navProgress"></div>
+</header>
+
+<main id="pdRoot">
+  <section class="pd-hero">
+    <div class="pd-hero__glow" aria-hidden="true"></div>
+    <div class="wrap pd-hero__inner">
+      <nav class="crumbs" aria-label="面包屑导航">
+        <a href="../index.html">首页</a>
+        <span class="sep">/</span>
+        <a href="../index.html#work">项目作品</a>
+        <span class="sep">/</span>
+        <span class="crumbs__here"></span>
+      </nav>
+
+      <div class="pd-hero__top">
+        <div>
+          <h1 class="pd-title"></h1>
+          <p class="pd-sub"></p>
+          <p class="pd-title-en"></p>
+        </div>
+        <div class="pd-index"></div>
+      </div>
+
+      <div class="pd-meta"></div>
+    </div>
+  </section>
+
+  <div class="pd-sections"></div>
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="sec-head" data-reveal style="margin-bottom:26px">
+        <div>
+          <p class="sec-label">Keep Exploring</p>
+          <h2 class="sec-title" style="font-size:clamp(22px,3vw,32px)">继续浏览</h2>
+        </div>
+      </div>
+      <div class="pd-next" id="pdNext"></div>
+    </div>
+  </section>
+
+  <section class="section contact" style="padding-block:clamp(56px,7vw,96px)">
+    <div class="wrap contact__inner">
+      <p class="sec-label" data-reveal>Get in Touch</p>
+      <h2 class="contact__title" data-reveal style="--d:60ms;font-size:clamp(28px,5vw,60px)">对这个项目<br>想了解更多？</h2>
+      <p class="contact__desc" data-reveal style="--d:120ms">
+        欢迎就设计过程、结构方案或落地细节做进一步沟通，我可以提供完整过程文件与实机演示。
+      </p>
+      <div class="contact__actions" data-reveal style="--d:180ms">
+        <a class="btn btn--primary" href="mailto:3027891801@qq.com?subject=项目咨询 - 毛安 工业设计">发送邮件 <span class="btn__arrow">→</span></a>
+        <a class="btn btn--ghost" href="../index.html#work">返回项目列表</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year"></span> 毛安 · 工业设计作品集 · 杭州电子科技大学</p>
+    <nav class="footer__links" aria-label="页脚导航">
+      <a href="../index.html#work">项目</a>
+      <a href="../index.html#about">关于</a>
+      <a href="../index.html#skills">能力</a>
+      <a href="../index.html#experience">经历</a>
+      <a href="mailto:3027891801@qq.com">3027891801@qq.com</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="../assets/js/projects.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+/* ==========================================================================
+   详情页渲染 —— 从 PROJECTS 数据层读取当前项目并生成页面结构
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var slug = (location.pathname.split('/').pop() || '').replace(/\.html?$/i, '');
+  if (typeof PROJECTS === 'undefined') return;
+  var p = PROJECTS.filter(function (x) { return x.slug === slug; })[0];
+  if (!p) return;
+
+  var q  = function (s) { return document.querySelector(s); };
+  var esc = function (s) { return String(s == null ? '' : s); };
+
+  /* ---------- 页面标题与 SEO ---------- */
+  document.title = p.title + ' · 毛安 工业设计作品集';
+  var md = document.querySelector('meta[name="description"]');
+  if (md) md.setAttribute('content', p.title + ' —— ' + String(p.subtitle || '').replace(/<[^>]+>/g, ''));
+
+  /* ---------- Hero ---------- */
+  q('.crumbs__here').textContent = p.title;
+  q('.pd-index').textContent = p.index;
+  q('.pd-title').textContent = p.title;
+  q('.pd-sub').innerHTML = esc(p.subtitle);
+  q('.pd-title-en').textContent = p.titleEn;
+
+  var metaCells = [
+    ['分类', p.category],
+    ['时间', p.year],
+    ['我的角色', p.role]
+  ];
+  if (p.award) metaCells.push(['项目性质', p.award]);
+  if (p.team)  metaCells.push(['团队', p.team]);
+  q('.pd-meta').innerHTML = metaCells.map(function (c) {
+    return '<div class="pd-meta__cell"><p class="pd-meta__k">' + c[0] + '</p><p class="pd-meta__v">' + esc(c[1]) + '</p></div>';
+  }).join('');
+
+  /* ---------- 图片段落 ---------- */
+  /* 详情页位于 projects/ 子目录，而数据层路径是相对站点根目录的，
+     因此统一加 ../ 前缀后再写入 HTML。 */
+  function rel(src) { return '../' + String(src).replace(/^\.\//, ''); }
+
+  function figure(f, delay) {
+    if (!f) return '';
+    var full = rel(f.src);
+    var srcset = f.width
+      ? ' srcset="' + rel(f.src.replace(/-\d+(\.jpg)$/, '-700$1')) + ' 700w, ' +
+                      rel(f.src.replace(/-\d+(\.jpg)$/, '-1100$1')) + ' 1100w, ' +
+                      full + ' ' + f.width + 'w"' +
+        ' sizes="(max-width: 900px) 100vw, min(1280px, 92vw)"'
+      : '';
+    var dims = f.width ? ' width="' + f.width + '" height="' + f.height + '"' : '';
+    return '<section class="section section--tight"><div class="wrap">' +
+      '<figure class="pd-figure" data-reveal style="--d:' + (delay || 0) + 'ms">' +
+        '<img class="zoomable" src="' + full + '"' + srcset + dims +
+          ' alt="' + esc(f.alt || p.title) + '"' +
+          ' data-full="' + full + '" data-caption="' + esc(f.cap || '') + '"' +
+          ' loading="lazy" decoding="async">' +
+        '<figcaption>' + esc(f.cap || '') + '</figcaption>' +
+      '</figure></div></section>';
+  }
+
+  /* ---------- 构建主体段落 ---------- */
+  var out = [];
+
+  /* 1. 项目概述 + 工作流程 */
+  var overviewHTML = p.overview
+    ? p.overview.map(function (t) { return '<p>' + t + '</p>'; }).join('')
+    : '';
+  var workflowHTML = p.workflow
+    ? p.workflow.map(function (t, i) {
+        return '<li data-i="' + String(i + 1).padStart(2, '0') + '"><span>' + t + '</span></li>';
+      }).join('')
+    : '';
+
+  if (overviewHTML || workflowHTML) {
+    out.push('<section class="section"><div class="wrap"><div class="pd-cols">' +
+      '<div data-reveal><h2 class="pd-h3">项目概述</h2>' +
+        (overviewHTML
+          ? '<div class="pd-prose">' + overviewHTML + '</div>'
+          : '<div class="pd-prose"><p>' + esc(p.subtitle) + '</p></div>') +
+      '</div>' +
+      (workflowHTML
+        ? '<div data-reveal style="--d:100ms"><h2 class="pd-h3">我的工作流程</h2>' +
+            '<ul class="bullets">' + workflowHTML + '</ul></div>'
+        : '') +
+    '</div></div></section>');
+  }
+
+  /* 2. 需求 / 设计目标 */
+  if (p.requirements) {
+    out.push('<section class="section section--tight"><div class="wrap">' +
+      '<h2 class="pd-h3" data-reveal>需求与设计目标</h2>' +
+      '<ul class="bullets" data-reveal style="--d:80ms">' +
+        p.requirements.map(function (r) {
+          return '<li data-i="' + r.i + '"><span>' + r.t + '</span></li>';
+        }).join('') +
+      '</ul></div></section>');
+  }
+
+  /* 3. 第一张图（如果有） */
+  if (p.figures && p.figures.length) out.push(figure(p.figures[0], 0));
+
+  /* 4. 设计亮点 */
+  if (p.bullets) {
+    out.push('<section class="section section--tight"><div class="wrap">' +
+      '<h2 class="pd-h3" data-reveal>设计要点</h2>' +
+      '<ul class="bullets" data-reveal style="--d:80ms">' +
+        p.bullets.map(function (b) {
+          return '<li data-i="' + b.i + '"><span>' + b.t + '</span></li>';
+        }).join('') +
+      '</ul></div></section>');
+  }
+
+  /* 5. 三件套系列（文创项目） */
+  if (p.series) {
+    out.push('<section class="section section--tight"><div class="wrap">' +
+      '<h2 class="pd-h3" data-reveal>系列构成</h2>' +
+      '<div class="cards">' +
+      p.series.map(function (s, i) {
+        return '<article class="card card--wide" data-reveal style="--d:' + (i * 90) + 'ms">' +
+          '<div class="card__media" style="aspect-ratio:16/9">' +
+            '<img class="zoomable" src="' + rel(s.imageLarge) + '"' +
+              ' srcset="' + rel(s.imageLarge) + ' 1100w, ' + rel(s.image) + ' 1600w"' +
+              ' sizes="(max-width: 900px) 100vw, min(1280px, 92vw)"' +
+              ' alt="' + esc(s.alt) + '"' +
+              ' data-full="' + rel(s.image) + '" data-caption="' + esc(s.name + ' · ' + s.slogan) + '"' +
+              ' loading="lazy" decoding="async">' +
+          '</div>' +
+          '<div class="card__body">' +
+            '<div class="card__top"><h3 class="card__title">' + s.name + '</h3>' +
+              '<span class="card__year">' + s.proto + '</span></div>' +
+            '<p class="card__sub" style="color:var(--accent);font-family:var(--mono);font-size:12px;letter-spacing:.06em">' + s.slogan + '</p>' +
+            '<p class="card__sub">' + s.desc + '</p>' +
+            '<table class="spec-table" style="margin-top:6px"><tbody>' +
+              s.points.map(function (pt) {
+                return '<tr><th>' + pt.k + '</th><td>' + pt.v + '</td></tr>';
+              }).join('') +
+            '</tbody></table>' +
+          '</div></article>';
+      }).join('') +
+      '</div></div></section>');
+  }
+
+  /* 6. 其他课程项目清单 */
+  if (p.items) {
+    out.push('<section class="section section--tight"><div class="wrap">' +
+      '<h2 class="pd-h3" data-reveal>项目清单</h2>' +
+      '<div class="cards">' +
+      p.items.map(function (it, i) {
+        var inner = '<div class="card__body">' +
+            '<div class="card__top"><h3 class="card__title">' + it.title + '</h3>' +
+              '<span class="card__year">' + it.tag + '</span></div>' +
+            '<p class="card__sub">' + it.desc + '</p>' +
+            '<p class="card__sub" style="font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.06em">' + it.en + '</p>' +
+          '</div>';
+        return it.link
+          ? '<a class="card card--mini" href="' + it.link + '.html" data-reveal style="--d:' + (i * 70) + 'ms">' + inner + '</a>'
+          : '<article class="card card--mini" data-reveal style="--d:' + (i * 70) + 'ms">' + inner + '</article>';
+      }).join('') +
+      '</div></div></section>');
+  }
+
+  /* 7. CMF */
+  if (p.cmf) {
+    out.push('<section class="section section--tight"><div class="wrap">' +
+      '<h2 class="pd-h3" data-reveal>CMF 设计</h2>' +
+      '<div class="pd-cols">' +
+        '<div data-reveal><div class="pd-prose"><p>' + p.cmf.desc + '</p></div></div>' +
+        '<div data-reveal style="--d:100ms">' +
+          '<div class="cmf-swatches">' +
+            p.cmf.swatches.map(function (s) {
+              return '<div class="swatch"><div class="swatch__chip" style="background:' + s.hex + '"></div>' +
+                '<div><div class="swatch__name">' + s.name + '</div>' +
+                '<div class="swatch__hex">' + s.hex + '</div></div></div>';
+            }).join('') +
+          '</div>' +
+          (p.cmf.materials ? '<table class="spec-table" style="margin-top:30px"><tbody>' +
+            p.cmf.materials.map(function (m) {
+              return '<tr><th>' + m.k + '</th><td>' + m.v + '</td></tr>';
+            }).join('') + '</tbody></table>' : '') +
+        '</div>' +
+      '</div></div></section>');
+  }
+
+  /* 8. 规格参数 */
+  if (p.specs) {
+    out.push('<section class="section section--tight"><div class="wrap">' +
+      '<h2 class="pd-h3" data-reveal>规格与参数</h2>' +
+      '<table class="spec-table" data-reveal style="--d:80ms"><tbody>' +
+        p.specs.map(function (s) {
+          return '<tr><th>' + s.k + '</th><td>' + s.v + '</td></tr>';
+        }).join('') +
+      '</tbody></table></div></section>');
+  }
+
+  /* 9. 草图方案（生态盆景） */
+  if (p.schemes) {
+    out.push('<section class="section section--tight"><div class="wrap">' +
+      '<h2 class="pd-h3" data-reveal>草图方案</h2>' +
+      '<div class="cards">' +
+        p.schemes.map(function (s, i) {
+          return '<article class="card card--mini" data-reveal style="--d:' + (i * 80) + 'ms">' +
+            '<div class="card__body"><h3 class="card__title" style="margin-bottom:6px">' + s.name + '</h3>' +
+            '<p class="card__sub">' + s.desc + '</p></div></article>';
+        }).join('') +
+      '</div></div></section>');
+  }
+
+  /* 10. 适用场景 */
+  if (p.scenes) {
+    out.push('<section class="section section--tight"><div class="wrap">' +
+      '<h2 class="pd-h3" data-reveal>适用场景</h2>' +
+      '<div class="cards">' +
+        p.scenes.map(function (s, i) {
+          return '<article class="card card--mini" data-reveal style="--d:' + (i * 60) + 'ms">' +
+            '<div class="card__body"><h3 class="card__title" style="margin-bottom:4px">' + s.name + '</h3>' +
+            '<p class="card__sub">' + s.desc + '</p></div></article>';
+        }).join('') +
+      '</div></div></section>');
+  }
+
+  /* 11. App 界面网格（按摩仪等交互项目） */
+  if (p.uiScreens) {
+    out.push('<section class="section section--tight"><div class="wrap">' +
+      '<h2 class="pd-h3" data-reveal>界面方案</h2>' +
+      '<div class="ui-grid">' +
+        p.uiScreens.map(function (u, i) {
+          return '<figure class="ui-item" data-reveal style="--d:' + (i * 80) + 'ms">' +
+            '<img class="zoomable" src="' + rel(u.src) + '"' +
+              ' alt="' + esc(u.name) + '" data-full="' + rel(u.full || u.src) + '"' +
+              ' data-caption="' + esc(u.name + ' · ' + (u.desc || '')) + '"' +
+              ' loading="lazy" decoding="async">' +
+            '<figcaption><strong>' + esc(u.name) + '</strong>' +
+              (u.desc ? '<span>' + esc(u.desc) + '</span>' : '') + '</figcaption>' +
+          '</figure>';
+        }).join('') +
+      '</div></div></section>');
+  }
+
+  /* 12. 其余图片 */
+  if (p.figures) {
+    for (var i = 1; i < p.figures.length; i++) out.push(figure(p.figures[i], 0));
+  }
+
+  q('.pd-sections').innerHTML = out.join('');
+
+  /* ---------- 继续浏览 ---------- */
+  var idx = PROJECTS.indexOf(p);
+  var next = PROJECTS[(idx + 1) % PROJECTS.length];
+  var prev = PROJECTS[(idx - 1 + PROJECTS.length) % PROJECTS.length];
+  q('#pdNext').innerHTML = [
+    { k: '上一个项目', o: prev },
+    { k: '下一个项目', o: next }
+  ].map(function (n, i) {
+    return '<a class="pd-next__card" href="' + n.o.slug + '.html" data-reveal style="--d:' + (i * 90) + 'ms">' +
+      '<p class="pd-next__k">' + n.k + ' · ' + n.o.index + '</p>' +
+      '<p class="pd-next__t">' + n.o.title + '</p>' +
+      '<p class="pd-next__s">' + n.o.category + ' · ' + n.o.year + '</p>' +
+    '</a>';
+  }).join('');
+
+  var y = q('#year');
+  if (y) y.textContent = new Date().getFullYear();
+
+  /* 内容为动态注入，重新观察一次 [data-reveal] */
+  if (typeof window.__reveal === 'function') window.__reveal();
+})();
+</script>
+</body>
+</html>

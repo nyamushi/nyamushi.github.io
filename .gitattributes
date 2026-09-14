@@ -1,0 +1,19 @@
+# 统一换行符，避免在 Windows 上出现「文件没改却显示已修改」的情况。
+# 文本文件在仓库内一律用 LF 存储，检出时自动适配当前系统。
+* text=auto eol=lf
+
+# 二进制文件不做任何转换
+*.ico   binary
+*.jpg   binary
+*.jpeg  binary
+*.png   binary
+*.webp  binary
+*.docx  binary
+
+# Windows 脚本保留 CRLF，方便在 PowerShell 里直接双击/执行
+*.ps1   text eol=crlf
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+
+# 语言统计修正（GitHub 会把 .html 项目误判为 HTML/CSS/JS 混合）
+*.html  linguist-documentation=false
