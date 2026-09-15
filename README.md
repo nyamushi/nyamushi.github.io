@@ -155,6 +155,8 @@ node tools/measure-cards.js             # 打印各卡片实际宽高，核对�
 node tools/diag-grid.js                 # 打印卡片在网格中的位置，排查排版空洞
 node tools/diag-contrast.js             # 浅色区块文字对比度（WCAG，正文需 ≥ 4.5:1）
 node tools/diag-contrast-dark.js        # 深色区块文字对比度
+node tools/check-site.js                # 检查线上站点是否已更新到最新提交 + 隐私复查
+node tools/check-live.js                # 用浏览器渲染线上站点，逐项核对线上版本
 ```
 
 > `qa-*.js` / `diag-*.js` 需要本机安装 Chrome（或设置环境变量 `CHROME_BIN`）。
