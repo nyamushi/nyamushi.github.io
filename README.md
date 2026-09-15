@@ -147,16 +147,40 @@ node tools/decode-webp.js raw-src/xxx.webp raw-src/xxx-1800.jpg 1800
 
 ```powershell
 node tools/check.js        # 静态检查：资源引用、锚点、图片变体、页面与数据一致性
-node tools/qa-all.js       # 浏览器实测：6 个页面逐页渲染，查 JS 报错/失败请求/关键内容
+node tools/qa-all.js       # 浏览器实测：逐页渲染，查 JS 报错/失败请求/关键内容
 node tools/qa-mobile.js    # 移动端 390px：横向溢出、汉堡菜单、关键内容
 node tools/qa-filter.js    # 校验分类筛选后可见卡片数与破图情况
 node tools/qa-shot.js <url> <out.png>   # 单页整页截图
 node tools/measure-cards.js             # 打印各卡片实际宽高，核对版式是否一致
 node tools/diag-grid.js                 # 打印卡片在网格中的位置，排查排版空洞
+node tools/diag-contrast.js             # 浅色区块文字对比度（WCAG，正文需 ≥ 4.5:1）
+node tools/diag-contrast-dark.js        # 深色区块文字对比度
 ```
 
-> `qa-*.js` 需要本机安装 Chrome（或设置环境变量 `CHROME_BIN`）。
+> `qa-*.js` / `diag-*.js` 需要本机安装 Chrome（或设置环境变量 `CHROME_BIN`）。
 > 截图采用「逐屏滚动 + 视口内截图拼接」，相比 `captureBeyondViewport` 能可靠渲染视口外的图片。
+
+### 关于浅色区块的文字颜色（踩过的坑）
+
+`.section--paper`（关于我）与 `.contact`（联系）是浅色纸底，但里面的组件
+（`.adv` / `.fact` / `.spec-table` / `.tag` …）复用的是深色主题的文字色令牌。
+如果不覆盖，就会渲染成**浅底浅字**（实测对比度只有 1.07:1，几乎不可见）。
+
+因此 CSS 中把这两个区块的文字令牌**就地覆盖为深色**：
+
+```css
+.section--paper,
+.contact {
+  --text:   #17170f;
+  --text-2: #4b4a42;
+  --text-3: #6e6b63;
+  --accent: #b8430c;   /* 橙色在浅底上需压暗，原 #ff5a1f 仅 2.79:1 */
+  --line:   rgba(20, 20, 15, 0.13);
+  --line-2: rgba(20, 20, 15, 0.28);
+}
+```
+
+**改动这两处的颜色后，务必跑一遍 `diag-contrast.js` 与 `diag-contrast-dark.js` 确认对比度。**
 
 ---
 
