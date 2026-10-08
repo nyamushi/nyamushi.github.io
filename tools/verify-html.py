@@ -23,8 +23,11 @@ print(f'  PNG 内嵌       {png}   (应为 0)')
 print(f'  JPEG 内嵌      {jpg}')
 
 # 外链资源（http/file 开头，或非 data/#/mailto 的 src）
-# 仓库内自带的 PDF 下载链接属于预期内，不算外部依赖
-EXPECTED = {'MaoAn-Portfolio-2026.pdf'}
+# 这些是仓库内自带的资源，属于预期内，不算外部依赖
+EXPECTED = {
+    'MaoAn-Portfolio-2026.pdf',   # 联系区的 PDF 下载入口
+    'favicon.ico',                # 图标兜底（浏览器会请求根目录的 /favicon.ico）
+}
 ext = [u for u in re.findall(r'(?:src|href)="([^"]+)"', s)
        if not u.startswith(('data:', '#')) and u not in EXPECTED]
 print(f'  非内嵌引用     {len(ext)}  {ext[:5]}')
