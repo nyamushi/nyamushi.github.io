@@ -120,9 +120,51 @@ git push -u origin main
 
 ---
 
-## 四、图片处理
+## 四、生成 PDF 版作品集
 
-原图最大 5404×3040、单张 10MB，已统一压缩为多分辨率 JPEG 变体（共 26 个文件约 3.7MB）。
+除网页版外，还能一键导出 A4 打印版 PDF（21 页，约 7.6MB），用于邮件投递或面试现场打印：
+
+```powershell
+node tools/build-pdf.js
+```
+
+产出：
+
+| 文件 | 说明 |
+|---|---|
+| `print/毛安-工业设计作品集.pdf` | A4 竖版，可直接发送或打印 |
+| `print/portfolio.html` | 中间产物，浏览器打开可预览分页效果 |
+
+内容同样来自 `assets/js/projects.js`，**与网站同源**，改数据层后重跑即可同步。
+
+分页结构：封面 → 关于我 → 项目索引+经历 → 每个项目 1–3 页（主视觉 / 设计说明 / 图纸 / 界面） → 联系方式。
+
+校验与预览工具：
+
+```powershell
+python tools/pdf-info.py                  # 页数 / 尺寸 / 体积
+python tools/pdf-audit.py "print/xxx.pdf" # 逐页文字量，查空白页与内容缺失
+python tools/pdf-preview.py "print/xxx.pdf" _qa/pdf   # 每页渲染成 PNG，肉眼检查排版
+```
+
+`build-pdf.js` 内置**页面溢出检测**：`.page` 是 `overflow:hidden` 的 A4 盒，
+内容超出会被静默裁掉，所以构建时会量出每页内容高度并在溢出时报警。
+
+### 排版上踩过的坑（改版式时注意）
+
+- **页面内边距必须留在 `.page` 上**，不能只在 `@page` 里设 margin：
+  页眉页脚是绝对定位到页面盒的，若把 `.page` 的 padding 归零，
+  页眉会直接压到正文上。
+- **封面内容全是绝对定位**，打印时若把 `.page` 高度改成 `auto`，
+  页面会塌成 0 高度、整页空白 —— 必须给 `.page--cover` 显式保留 `297mm`。
+- 页脚（`.pf`）已停用：它贴底绝对定位会与末页内容重叠，
+  而联系方式在封面和末页都已给出。
+
+---
+
+## 五、图片处理
+
+原图最大 5404×3040、单张 10MB，已统一压缩为多分辨率 JPEG 变体（共 44 个文件约 6.2MB）。
 
 ```powershell
 & tools/build-assets.ps1     # 重新生成 assets/img 下所有变体
@@ -157,6 +199,10 @@ node tools/diag-contrast.js             # 浅色区块文字对比度（WCAG，�
 node tools/diag-contrast-dark.js        # 深色区块文字对比度
 node tools/check-site.js                # 检查线上站点是否已更新到最新提交 + 隐私复查
 node tools/check-live.js                # 用浏览器渲染线上站点，逐项核对线上版本
+node tools/build-pdf.js                 # 生成 A4 打印版作品集 PDF
+python tools/pdf-info.py                # PDF 页数 / 尺寸 / 体积
+python tools/pdf-audit.py <pdf>         # 逐页文字量，查空白页
+python tools/pdf-preview.py <pdf> <dir> # 每页渲染成 PNG
 ```
 
 > `qa-*.js` / `diag-*.js` 需要本机安装 Chrome（或设置环境变量 `CHROME_BIN`）。

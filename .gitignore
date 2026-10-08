@@ -13,6 +13,11 @@ node_modules/
 package-lock.json
 *.log
 *.tmp
+_probe.pdf
+
+# 生成的 PDF 与中间产物：体积较大，且可由 node tools/build-pdf.js 随时重建。
+# 若希望把 PDF 也纳入版本管理，注释掉下面这行即可。
+print/
 
 # 系统 / 编辑器
 Thumbs.db
