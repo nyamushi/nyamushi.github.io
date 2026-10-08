@@ -98,8 +98,9 @@ python tools/verify-html.py index.html
 └── print/                        旧版 A4 生成产物（已 gitignore）
 ```
 
-> `assets/` 与 `print/` 是上一版多文件站点的遗留物。当前首页是单文件，
-> 不再引用它们，可以安全删除（能省约 6 MB）；保留是为了日后想恢复旧版排版时留个底。
+> `assets/` 与 `print/` 是上一版多文件站点的遗留物，已从仓库移除
+> （`assets/` 与 `projects/` 归档到本地 `_archive/`，该目录已 gitignore）。
+> 当前首页是单文件版，不引用它们；日后想参考旧排版可从 `_archive/` 取回。
 
 ---
 
@@ -107,3 +108,57 @@ python tools/verify-html.py index.html
 
 `.gitignore` 已排除 `resume.docx`（含手机号与邮箱）。线上不提供简历文件下载，
 面试沟通时单独发送即可。
+
+---
+
+## 排障记录
+
+### favicon.ico 曾是损坏文件（会导致站点无法正常访问）
+
+原 `favicon.ico`（606 字节）**其实是个 PNG 文件被错误地命名成 .ico**：
+文件头是 PNG 魔数 `89 50 4E 47`，而非 ICO 应有的 `00 00 01 00`。
+扩展名与内容不符，服务器提供该文件时会出错 —— 外部代理访问站点返回
+**Cloudflare 520 / 522**，正是「源站返回未知错误」的典型表现。
+
+已用 `tools/make-favicon.py` 重新生成合法 ICO（16/32/48/64 四个尺寸，
+ICO 容器内嵌 PNG），并把首页 favicon 声明规范化（内联 SVG 优先、
+`favicon.ico` 兜底且显式声明 `type`）。
+
+### 本机无法访问 *.github.io（网络层问题，非站点故障）
+
+本机网络对**整个 `*.github.io` 域名族**的 TLS 握手都会被阻断：
+
+| 域名 | 结果 |
+|---|---|
+| `github.com` / `raw.githubusercontent.com` | 正常 200 |
+| `pages.github.com` / `choosealicense.com` | 正常 200 |
+| `github.io`（裸域名） | 超时 20s |
+| `octocat.github.io`（他人站点） | 超时 20s |
+| `nyamushi.github.io` | 超时 15–19s，重试稳定复现 |
+
+连 TLS 证书都拿不到，属典型的 DNS 污染 / SNI 阻断特征。
+**与站点本身无关** —— 换网络（如手机移动数据）即可验证。
+
+### 清理旧版残留
+
+原多文件站点（7 个项目、`assets/` + `projects/`）已被单文件版替换，
+不再被任何页面引用。已从仓库移除并归档到本地 `_archive/`：
+
+| 项目 | 清理前 | 清理后 |
+|---|---|---|
+| 仓库内容 | 11.24 MB / 98 个文件 | **4.89 MB / 48 个文件** |
+
+---
+
+## 校验工具
+
+改动部署文件后建议跑一遍，三个脚本都应退出码 0：
+
+```powershell
+python tools/verify-deploy.py                 # 部署文件：HTML / PDF / ICO 逐个验证
+python tools/verify-integrity.py index.html   # base64 合法性、标签配平、结构完整
+python tools/verify-html.py index.html        # 图片编码与内容完整性
+```
+
+`verify-deploy.py` 会校验 ICO 容器结构（含图像数据是否越界）、PDF 是否含 `%%EOF`、
+HTML 是否含非法控制字符 —— 这些正是本次 favicon 故障暴露出的检查盲区。
