@@ -23,6 +23,14 @@ print/
 # 成品已复制到仓库根目录：index.html 与 MaoAn-Portfolio-2026.pdf
 portfolio-2026/
 
+# 旧版多文件站点的归档（原 assets/ + projects/）。
+# 新版首页是单文件，不引用这些内容，已移出仓库以缩小体积；
+# 文件仍保留在本地磁盘，日后想参考旧排版可从 _archive/ 取回。
+_archive/
+
+# 校验脚本的临时输出
+_qa_*.txt
+
 # 系统 / 编辑器
 Thumbs.db
 desktop.ini
