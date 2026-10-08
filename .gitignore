@@ -19,6 +19,10 @@ _probe.pdf
 # 若希望把 PDF 也纳入版本管理，注释掉下面这行即可。
 print/
 
+# 作品集 2026 的构建工作区（自带独立 .git，不能嵌套提交）。
+# 成品已复制到仓库根目录：index.html 与 MaoAn-Portfolio-2026.pdf
+portfolio-2026/
+
 # 系统 / 编辑器
 Thumbs.db
 desktop.ini
